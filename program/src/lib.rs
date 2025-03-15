@@ -1,7 +1,7 @@
 //! Solana BPF Loader V3 (Upgradeable) program.
 #![allow(unexpected_cfgs)]
 
-#[cfg(all(target_os = "solana", feature = "bpf-entrypoint"))]
+//#[cfg(all(target_os = "solana", feature = "bpf-entrypoint"))]
 mod entrypoint;
 pub mod instruction;
 pub mod processor;

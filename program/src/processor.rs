@@ -4,8 +4,7 @@ use {
     crate::{
         instruction::QEDDataLoaderInstruction,
         state::{get_program_data_address_and_bump_seed, UpgradeableLoaderState},
-    },
-    solana_program::{
+    }, borsh::BorshDeserialize, solana_program::{
         account_info::{next_account_info, AccountInfo},
         clock::Clock,
         entrypoint::ProgramResult,
@@ -17,9 +16,9 @@ use {
         rent::Rent,
         system_instruction::{self, MAX_PERMITTED_DATA_LENGTH},
         sysvar::Sysvar,
-    },
+    }
 };
-
+/*
 // [Core BPF]: Locally-implemented
 // `solana_sdk::program_utils::limited_deserialize`.
 fn limited_deserialize<T>(input: &[u8]) -> Result<T, ProgramError>
@@ -31,7 +30,7 @@ where
     )
     .map_err(|_| ProgramError::InvalidInstructionData)
 }
-
+*/
 /// Processes an
 /// [InitializeBuffer](enum.QEDDataLoaderInstruction.html)
 /// instruction.
@@ -970,7 +969,7 @@ fn process_set_authority_checked(_program_id: &Pubkey, accounts: &[AccountInfo])
 /// Processes a
 /// [QEDDataLoaderInstruction](enum.QEDDataLoaderInstruction.html).
 pub fn process(program_id: &Pubkey, accounts: &[AccountInfo], input: &[u8]) -> ProgramResult {
-    match limited_deserialize(input)? {
+    match QEDDataLoaderInstruction::try_from_slice(input)? {
         QEDDataLoaderInstruction::InitializeBuffer => {
             msg!("Instruction: InitializeBuffer");
             process_initialize_buffer(program_id, accounts)
