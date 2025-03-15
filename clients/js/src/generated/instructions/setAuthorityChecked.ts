@@ -29,7 +29,7 @@ import {
 import { QED_DATA_LOADER_PROGRAM_ADDRESS } from '../programs';
 import { getAccountMetaFactory, type ResolvedAccount } from '../shared';
 
-export const SET_AUTHORITY_CHECKED_DISCRIMINATOR = 7;
+export const SET_AUTHORITY_CHECKED_DISCRIMINATOR = 4;
 
 export function getSetAuthorityCheckedDiscriminatorBytes() {
   return getU8Encoder().encode(SET_AUTHORITY_CHECKED_DISCRIMINATOR);

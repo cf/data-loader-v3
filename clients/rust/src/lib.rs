@@ -1,3 +1,3 @@
 mod generated;
 
-pub use generated::{programs::LOADER_V3_ID as ID, *};
+pub use generated::{programs::QED_DATA_LOADER_ID as ID, *};

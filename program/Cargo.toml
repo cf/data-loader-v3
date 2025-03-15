@@ -28,5 +28,6 @@ mollusk-svm = { version = "0.0.15", features = ["fuzz-fd"] }
 solana-sdk = "~2.1"
 
 [features]
+default = ["bpf-entrypoint"]
 bpf-entrypoint = []
 test-sbf = []

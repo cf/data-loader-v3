@@ -14,12 +14,9 @@ import {
 } from '@solana/kit';
 import {
   type ParsedCloseInstruction,
-  type ParsedDeployWithMaxDataLenInstruction,
-  type ParsedExtendProgramInstruction,
   type ParsedInitializeBufferInstruction,
   type ParsedSetAuthorityCheckedInstruction,
   type ParsedSetAuthorityInstruction,
-  type ParsedUpgradeInstruction,
   type ParsedWriteInstruction,
 } from '../instructions';
 
@@ -29,11 +26,8 @@ export const QED_DATA_LOADER_PROGRAM_ADDRESS =
 export enum QedDataLoaderInstruction {
   InitializeBuffer,
   Write,
-  DeployWithMaxDataLen,
-  Upgrade,
   SetAuthority,
   Close,
-  ExtendProgram,
   SetAuthorityChecked,
 }
 
@@ -48,21 +42,12 @@ export function identifyQedDataLoaderInstruction(
     return QedDataLoaderInstruction.Write;
   }
   if (containsBytes(data, getU8Encoder().encode(2), 0)) {
-    return QedDataLoaderInstruction.DeployWithMaxDataLen;
-  }
-  if (containsBytes(data, getU8Encoder().encode(3), 0)) {
-    return QedDataLoaderInstruction.Upgrade;
-  }
-  if (containsBytes(data, getU8Encoder().encode(4), 0)) {
     return QedDataLoaderInstruction.SetAuthority;
   }
-  if (containsBytes(data, getU8Encoder().encode(5), 0)) {
+  if (containsBytes(data, getU8Encoder().encode(3), 0)) {
     return QedDataLoaderInstruction.Close;
   }
-  if (containsBytes(data, getU8Encoder().encode(6), 0)) {
-    return QedDataLoaderInstruction.ExtendProgram;
-  }
-  if (containsBytes(data, getU8Encoder().encode(7), 0)) {
+  if (containsBytes(data, getU8Encoder().encode(4), 0)) {
     return QedDataLoaderInstruction.SetAuthorityChecked;
   }
   throw new Error(
@@ -80,20 +65,11 @@ export type ParsedQedDataLoaderInstruction<
       instructionType: QedDataLoaderInstruction.Write;
     } & ParsedWriteInstruction<TProgram>)
   | ({
-      instructionType: QedDataLoaderInstruction.DeployWithMaxDataLen;
-    } & ParsedDeployWithMaxDataLenInstruction<TProgram>)
-  | ({
-      instructionType: QedDataLoaderInstruction.Upgrade;
-    } & ParsedUpgradeInstruction<TProgram>)
-  | ({
       instructionType: QedDataLoaderInstruction.SetAuthority;
     } & ParsedSetAuthorityInstruction<TProgram>)
   | ({
       instructionType: QedDataLoaderInstruction.Close;
     } & ParsedCloseInstruction<TProgram>)
-  | ({
-      instructionType: QedDataLoaderInstruction.ExtendProgram;
-    } & ParsedExtendProgramInstruction<TProgram>)
   | ({
       instructionType: QedDataLoaderInstruction.SetAuthorityChecked;
     } & ParsedSetAuthorityCheckedInstruction<TProgram>);

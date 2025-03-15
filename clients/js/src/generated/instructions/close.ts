@@ -30,7 +30,7 @@ import {
 import { QED_DATA_LOADER_PROGRAM_ADDRESS } from '../programs';
 import { getAccountMetaFactory, type ResolvedAccount } from '../shared';
 
-export const CLOSE_DISCRIMINATOR = 5;
+export const CLOSE_DISCRIMINATOR = 3;
 
 export function getCloseDiscriminatorBytes() {
   return getU8Encoder().encode(CLOSE_DISCRIMINATOR);
