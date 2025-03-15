@@ -21,7 +21,7 @@ import {
 } from '../instructions';
 
 export const QED_DATA_LOADER_PROGRAM_ADDRESS =
-  'G85FRPLfrS9HKdxvGNYWBpjmBfqSwtVdYjk92KqN737s' as Address<'G85FRPLfrS9HKdxvGNYWBpjmBfqSwtVdYjk92KqN737s'>;
+  'CzqeK66uHUYbauvaLJ3sfQd9JmiMqvvPvAudpZmhr6xF' as Address<'CzqeK66uHUYbauvaLJ3sfQd9JmiMqvvPvAudpZmhr6xF'>;
 
 export enum QedDataLoaderInstruction {
   InitializeBuffer,
@@ -56,7 +56,7 @@ export function identifyQedDataLoaderInstruction(
 }
 
 export type ParsedQedDataLoaderInstruction<
-  TProgram extends string = 'G85FRPLfrS9HKdxvGNYWBpjmBfqSwtVdYjk92KqN737s',
+  TProgram extends string = 'CzqeK66uHUYbauvaLJ3sfQd9JmiMqvvPvAudpZmhr6xF',
 > =
   | ({
       instructionType: QedDataLoaderInstruction.InitializeBuffer;

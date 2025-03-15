@@ -8,4 +8,4 @@
 use solana_program::{pubkey, pubkey::Pubkey};
 
 /// `qed_data_loader` program ID.
-pub const QED_DATA_LOADER_ID: Pubkey = pubkey!("G85FRPLfrS9HKdxvGNYWBpjmBfqSwtVdYjk92KqN737s");
+pub const QED_DATA_LOADER_ID: Pubkey = pubkey!("CzqeK66uHUYbauvaLJ3sfQd9JmiMqvvPvAudpZmhr6xF");
