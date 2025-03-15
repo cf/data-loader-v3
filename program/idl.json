@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "name": "solana_loader_v3_program",
+  "name": "qed_data_loader_program",
   "instructions": [
     {
       "name": "InitializeBuffer",
@@ -24,7 +24,7 @@
       ],
       "args": [],
       "discriminant": {
-        "type": "u32",
+        "type": "u8",
         "value": 0
       }
     },
@@ -59,7 +59,7 @@
         }
       ],
       "discriminant": {
-        "type": "u32",
+        "type": "u8",
         "value": 1
       }
     },
@@ -138,7 +138,7 @@
         }
       ],
       "discriminant": {
-        "type": "u32",
+        "type": "u8",
         "value": 2
       }
     },
@@ -204,7 +204,7 @@
       ],
       "args": [],
       "discriminant": {
-        "type": "u32",
+        "type": "u8",
         "value": 3
       }
     },
@@ -239,7 +239,7 @@
       ],
       "args": [],
       "discriminant": {
-        "type": "u32",
+        "type": "u8",
         "value": 4
       }
     },
@@ -283,7 +283,7 @@
       ],
       "args": [],
       "discriminant": {
-        "type": "u32",
+        "type": "u8",
         "value": 5
       }
     },
@@ -332,7 +332,7 @@
         }
       ],
       "discriminant": {
-        "type": "u32",
+        "type": "u8",
         "value": 6
       }
     },
@@ -366,14 +366,14 @@
       ],
       "args": [],
       "discriminant": {
-        "type": "u32",
+        "type": "u8",
         "value": 7
       }
     }
   ],
   "metadata": {
     "origin": "shank",
-    "address": "CoreBPFLoaderUpgradeab1e1111111111111111111",
+    "address": "G85FRPLfrS9HKdxvGNYWBpjmBfqSwtVdYjk92KqN737s",
     "binaryVersion": "0.4.2",
     "libVersion": "^0.4.2"
   }

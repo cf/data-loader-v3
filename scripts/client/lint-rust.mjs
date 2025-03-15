@@ -9,12 +9,7 @@ import {
 
 // Configure additional arguments here, e.g.:
 // ['--arg1', '--arg2', ...cliArguments()]
-const lintArgs = [
-  '-Zunstable-options',
-  '--',
-  '--deny=warnings',
-  ...cliArguments()
-];
+const lintArgs = cliArguments();
 
 const fix = popArgument(lintArgs, '--fix');
 const toolchain = getToolchainArgument('lint');

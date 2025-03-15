@@ -1,18 +1,16 @@
 //! Program instruction types.
 
 use {
-    serde::{Deserialize, Serialize},
-    shank::ShankInstruction,
-    solana_program::{
+    borsh::{BorshDeserialize, BorshSerialize}, serde::{Deserialize, Serialize}, shank::ShankInstruction, solana_program::{
         instruction::{AccountMeta, Instruction},
         pubkey::Pubkey,
-    },
+    }
 };
 
 /// Instructions supported by the Solana BPF Loader v3 program.
 #[rustfmt::skip]
-#[derive(Clone, Debug, PartialEq, Deserialize, Serialize, ShankInstruction)]
-pub enum LoaderV3Instruction {
+#[derive(Clone, Debug, PartialEq, Deserialize, Serialize, ShankInstruction, BorshSerialize, BorshDeserialize)]
+pub enum QEDDataLoaderInstruction {
     /// Initialize a Buffer account.
     ///
     /// A Buffer account is an intermediary that once fully populated is used
@@ -368,22 +366,22 @@ pub enum LoaderV3Instruction {
 }
 
 /// Creates an
-/// [InitializeBuffer](enum.LoaderV3Instruction.html)
+/// [InitializeBuffer](enum.QEDDataLoaderInstruction.html)
 /// instruction.
 pub fn initialize_buffer(source_address: &Pubkey, authority_address: &Pubkey) -> Instruction {
     let accounts = vec![
         AccountMeta::new(*source_address, false),
         AccountMeta::new(*authority_address, false),
     ];
-    Instruction::new_with_bincode(
+    Instruction::new_with_borsh(
         crate::id(),
-        &LoaderV3Instruction::InitializeBuffer,
+        &QEDDataLoaderInstruction::InitializeBuffer,
         accounts,
     )
 }
 
 /// Creates a
-/// [Write](enum.LoaderV3Instruction.html)
+/// [Write](enum.QEDDataLoaderInstruction.html)
 /// instruction.
 pub fn write(
     buffer_address: &Pubkey,
@@ -395,15 +393,15 @@ pub fn write(
         AccountMeta::new(*buffer_address, false),
         AccountMeta::new_readonly(*authority_address, true),
     ];
-    Instruction::new_with_bincode(
+    Instruction::new_with_borsh(
         crate::id(),
-        &LoaderV3Instruction::Write { offset, bytes },
+        &QEDDataLoaderInstruction::Write { offset, bytes },
         accounts,
     )
 }
 
 /// Creates a
-/// [DeployWithMaxDataLen](enum.LoaderV3Instruction.html)
+/// [DeployWithMaxDataLen](enum.QEDDataLoaderInstruction.html)
 /// instruction.
 pub fn deploy_with_max_data_len(
     payer_address: &Pubkey,
@@ -423,15 +421,15 @@ pub fn deploy_with_max_data_len(
         AccountMeta::new_readonly(solana_program::system_program::id(), false),
         AccountMeta::new_readonly(*authority_address, true),
     ];
-    Instruction::new_with_bincode(
+    Instruction::new_with_borsh(
         crate::id(),
-        &LoaderV3Instruction::DeployWithMaxDataLen { max_data_len },
+        &QEDDataLoaderInstruction::DeployWithMaxDataLen { max_data_len },
         accounts,
     )
 }
 
 /// Creates an
-/// [Upgrade](enum.LoaderV3Instruction.html)
+/// [Upgrade](enum.QEDDataLoaderInstruction.html)
 /// instruction.
 pub fn upgrade(
     program_data_address: &Pubkey,
@@ -449,11 +447,11 @@ pub fn upgrade(
         AccountMeta::new_readonly(solana_program::sysvar::clock::id(), false),
         AccountMeta::new_readonly(*authority_address, true),
     ];
-    Instruction::new_with_bincode(crate::id(), &LoaderV3Instruction::Upgrade, accounts)
+    Instruction::new_with_borsh(crate::id(), &QEDDataLoaderInstruction::Upgrade, accounts)
 }
 
 /// Creates a
-/// [SetAuthority](enum.LoaderV3Instruction.html)
+/// [SetAuthority](enum.QEDDataLoaderInstruction.html)
 /// instruction.
 pub fn set_authority(
     buffer_or_program_data_address: &Pubkey,
@@ -467,11 +465,11 @@ pub fn set_authority(
     if let Some(new_authority_address) = new_authority_address {
         accounts.push(AccountMeta::new_readonly(*new_authority_address, false));
     }
-    Instruction::new_with_bincode(crate::id(), &LoaderV3Instruction::SetAuthority, accounts)
+    Instruction::new_with_borsh(crate::id(), &QEDDataLoaderInstruction::SetAuthority, accounts)
 }
 
 /// Creates a
-/// [Close](enum.LoaderV3Instruction.html)
+/// [Close](enum.QEDDataLoaderInstruction.html)
 /// instruction.
 pub fn close(
     buffer_or_program_data_address: &Pubkey,
@@ -489,11 +487,11 @@ pub fn close(
     if let Some(program_address) = program_address {
         accounts.push(AccountMeta::new(*program_address, false));
     }
-    Instruction::new_with_bincode(crate::id(), &LoaderV3Instruction::Close, accounts)
+    Instruction::new_with_borsh(crate::id(), &QEDDataLoaderInstruction::Close, accounts)
 }
 
 /// Creates an
-/// [ExtendProgram](enum.LoaderV3Instruction.html)
+/// [ExtendProgram](enum.QEDDataLoaderInstruction.html)
 /// instruction.
 pub fn extend_program(
     program_data_address: &Pubkey,
@@ -512,15 +510,15 @@ pub fn extend_program(
         ));
         accounts.push(AccountMeta::new(*payer_address, true));
     }
-    Instruction::new_with_bincode(
+    Instruction::new_with_borsh(
         crate::id(),
-        &LoaderV3Instruction::ExtendProgram { additional_bytes },
+        &QEDDataLoaderInstruction::ExtendProgram { additional_bytes },
         accounts,
     )
 }
 
 /// Creates a
-/// [SetAuthorityChecked](enum.LoaderV3Instruction.html)
+/// [SetAuthorityChecked](enum.QEDDataLoaderInstruction.html)
 /// instruction.
 pub fn set_authority_checked(
     buffer_or_program_data_address: &Pubkey,
@@ -532,9 +530,9 @@ pub fn set_authority_checked(
         AccountMeta::new_readonly(*current_authority_address, true),
         AccountMeta::new_readonly(*new_authority_address, true),
     ];
-    Instruction::new_with_bincode(
+    Instruction::new_with_borsh(
         crate::id(),
-        &LoaderV3Instruction::SetAuthorityChecked,
+        &QEDDataLoaderInstruction::SetAuthorityChecked,
         accounts,
     )
 }
